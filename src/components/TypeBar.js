@@ -8,6 +8,13 @@ export const TypeBar = observer(() => {
 
   return (
     <ListGroup>
+      <ListGroup.Item
+        style={{ cursor: 'pointer' }}
+        active={device.selectedType.id === undefined}
+        onClick={() => device.setSelectedType({})}
+      >
+        All
+      </ListGroup.Item>
       {device.types.map((type) => (
         <ListGroup.Item
           style={{ cursor: 'pointer' }}

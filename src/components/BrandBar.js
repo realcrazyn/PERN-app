@@ -8,6 +8,15 @@ export const BrandBar = observer(() => {
 
   return (
     <Row style={{ display: 'flex' }}>
+      <Card
+        className="p-3"
+        style={{ cursor: 'pointer', width: 'auto' }}
+        border={device.selectedBrand.id === undefined ? 'danger' : null}
+        onClick={() => device.setSelectedBrand({})}
+      >
+        All
+      </Card>
+
       {device.brands.map((brand) => (
         <Card
           className="p-3"

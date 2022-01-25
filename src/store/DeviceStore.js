@@ -2,50 +2,14 @@ import { makeAutoObservable } from 'mobx'
 
 export default class DeviceStore {
   constructor() {
-    this._types = [
-      { id: 1, name: 'Refrigirator' },
-      { id: 2, name: 'Smartphone' },
-      { id: 3, name: 'Notebooks' },
-      { id: 4, name: 'TVs' },
-    ]
-    this._brands = [
-      { id: 1, name: 'LG' },
-      { id: 2, name: 'Apple' },
-      { id: 3, name: 'Lenovo' },
-      { id: 4, name: 'Samsung' },
-    ]
-    this._devices = [
-      {
-        id: 1,
-        name: 'Iphone 11 Pro',
-        price: 25000,
-        rating: 5,
-        img: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MX0H2?wid=572&hei=572&fmt=jpeg&qlt=95&.v=1567304952459',
-      },
-      {
-        id: 2,
-        name: 'Iphone 11 Pro',
-        price: 25000,
-        rating: 5,
-        img: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MX0H2?wid=572&hei=572&fmt=jpeg&qlt=95&.v=1567304952459',
-      },
-      {
-        id: 3,
-        name: 'Iphone 11 Pro',
-        price: 25000,
-        rating: 5,
-        img: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MX0H2?wid=572&hei=572&fmt=jpeg&qlt=95&.v=1567304952459',
-      },
-      {
-        id: 4,
-        name: 'Iphone 11 Pro',
-        price: 25000,
-        rating: 5,
-        img: 'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MX0H2?wid=572&hei=572&fmt=jpeg&qlt=95&.v=1567304952459',
-      },
-    ]
+    this._types = []
+    this._brands = []
+    this._devices = []
     this._selectedType = {}
     this._selectedBrand = {}
+    this._page = 1
+    this._totalCount = 0
+    this._limit = 3
     makeAutoObservable(this)
   }
 
@@ -61,10 +25,24 @@ export default class DeviceStore {
   }
 
   setSelectedType(type) {
+    this.setPage(1)
     this._selectedType = type
   }
   setSelectedBrand(brand) {
+    this.setPage(1)
     this._selectedBrand = brand
+  }
+
+  setPage(page) {
+    this._page = page
+  }
+
+  setTotalCount(count) {
+    this._totalCount = count
+  }
+
+  setLimit(limit) {
+    this._limit = limit
   }
 
   get types() {
@@ -84,5 +62,15 @@ export default class DeviceStore {
   }
   get selectedBrand() {
     return this._selectedBrand
+  }
+
+  get totalCount() {
+    return this._totalCount
+  }
+  get limit() {
+    return this._limit
+  }
+  get page() {
+    return this._page
   }
 }

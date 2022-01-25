@@ -1,10 +1,11 @@
+import { observer } from 'mobx-react-lite'
 import { useContext } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Context } from '..'
 import { Shop } from '../pages/Shop'
 import { authRoutes, publicRoutes } from '../routes'
 
-export const AppRouter = () => {
+export const AppRouter = observer(() => {
   const { user } = useContext(Context)
 
   return (
@@ -19,4 +20,4 @@ export const AppRouter = () => {
       <Route path="*" element={<Shop />} />
     </Routes>
   )
-}
+})
