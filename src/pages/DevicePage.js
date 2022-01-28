@@ -1,16 +1,21 @@
-import { useEffect, useState } from 'react'
+import { observer } from 'mobx-react-lite'
+import { useContext, useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
+import { Context } from '..'
 import bigStar from '../assets/bigStar.svg'
+import { addBasketDevice, fetchBasketDevices } from '../http/basketAPI'
 import { fetchOneDevice } from '../http/deviceAPI'
 
-export const DevicePage = () => {
-  const [device, setDevice] = useState({ info: [] })
+export const DevicePage = observer(() => {
   const { id } = useParams()
-
   useEffect(() => {
     fetchOneDevice(id).then((data) => setDevice(data))
-  }, [])
+  }, [id])
+  const [device, setDevice] = useState({ info: [] })
+
+  const { user } = useContext(Context)
+  // console.log(device.id, user.user.id)
 
   return (
     <Container className="mt-3 d-flex flex-column align-items-center">
@@ -52,7 +57,14 @@ export const DevicePage = () => {
             }}
           >
             <h3>From {device.price} rub.</h3>
-            <Button variant={'outline-dark'}>Add to cart</Button>
+            <Button
+              variant={'outline-dark'}
+              onClick={() => {
+                addBasketDevice(device.id, user.user.id)
+              }}
+            >
+              Add to cart
+            </Button>
           </Card>
         </Col>
       </Row>
@@ -71,4 +83,4 @@ export const DevicePage = () => {
       </Row>
     </Container>
   )
-}
+})

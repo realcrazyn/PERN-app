@@ -9,7 +9,7 @@ import { TypeBar } from '../components/TypeBar'
 import { fetchBrands, fetchDevice, fetchTypes } from '../http/deviceAPI'
 
 export const Shop = observer(() => {
-  const { device } = useContext(Context)
+  const { device, user } = useContext(Context)
 
   useEffect(() => {
     fetchTypes().then((data) => device.setTypes(data))
@@ -32,7 +32,7 @@ export const Shop = observer(() => {
     device.selectedType.id,
     device.selectedBrand.id,
   ])
-
+  console.log(user.user)
   return (
     <Container>
       <Row>
